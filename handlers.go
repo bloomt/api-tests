@@ -1,30 +1,22 @@
 package main
 
 import (
-    "encoding/json"
-    "fmt"
-    "net/http"
+	"fmt"
+	"net/http"
+)
 
-    "github.com/gorilla/mux"
+var (
+	duration = 0
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintln(w, "Welcome!")
-}
-
-func TodoIndex(w http.ResponseWriter, r *http.Request) {
-    todos := Todos{
-        Todo{Name: "Write presentation"},
-        Todo{Name: "Host meetup"},
-    }
-
-    if err := json.NewEncoder(w).Encode(todos); err != nil {
-        panic(err)
-    }
-}
-
-func TodoShow(w http.ResponseWriter, r *http.Request) {
-    vars := mux.Vars(r)
-    todoId := vars["todoId"]
-    fmt.Fprintln(w, "Todo show:", todoId)
+	go func() {
+		for n := 0; n <= 5; n++ {
+			duration++
+			fmt.Println(duration)
+		}
+		duration = 0
+		fmt.Println(duration)
+	}()
+	fmt.Fprintln(w, "Welcome!", duration)
 }
