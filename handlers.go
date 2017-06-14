@@ -9,6 +9,7 @@ var (
 	duration = 0
 )
 
+//Test push
 func Index(w http.ResponseWriter, r *http.Request) {
 	go func() {
 		for n := 0; n <= 5; n++ {
